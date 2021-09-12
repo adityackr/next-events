@@ -37,11 +37,11 @@ const SelectedEventDetailPage = (props) => {
         return <p className="center">Loading...</p>;
     }
 
-    const filteredYear = filterData[0];
-    const filteredMonth = filterData[1];
+    // const filteredYear = filterData[0];
+    // const filteredMonth = filterData[1];
 
-    const numYear = +filteredYear;
-    const numMonth = +filteredMonth;
+    // const numYear = +filteredYear;
+    // const numMonth = +filteredMonth;
 
     if (props.hasError) {
         return (
