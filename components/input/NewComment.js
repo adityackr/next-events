@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import classes from './NewComment.module.css';
 
-const NewComment = () => {
+const NewComment = (props) => {
     const [isInvalid, setIsInvalid] = useState(false);
 
     const emailInputRef = useRef();
@@ -33,10 +33,14 @@ const NewComment = () => {
             name: enteredName,
             text: enteredComment,
         });
+
+        emailInputRef.current.value = '';
+        nameInputRef.current.value = '';
+        commentInputRef.current.value = '';
     }
 
     return (
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={sendCommentHandler}>
             <div className={classes.row}>
                 <div className={classes.control}>
                     <label htmlFor="email">Your email</label>
@@ -58,7 +62,7 @@ const NewComment = () => {
             {isInvalid && (
                 <p>Please enter a valid email address and comment!</p>
             )}
-            <button>Submit</button>
+            <button className={classes.btn}>Submit</button>
         </form>
     );
 };
