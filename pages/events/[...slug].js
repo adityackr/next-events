@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -33,8 +34,23 @@ const SelectedEventDetailPage = (props) => {
     //     }
     // }, [data]);
 
+    const pageHeadData = (
+        <Head>
+            <title>Filtered Events</title>
+            <meta
+                name="description"
+                content={`All events for ${props.date.month}/${props.date.year}`}
+            />
+        </Head>
+    );
+
     if (!props.events) {
-        return <p className="center">Loading...</p>;
+        return (
+            <Fragment>
+                {pageHeadData}
+                <p className="center">Loading...</p>
+            </Fragment>
+        );
     }
 
     // const filteredYear = filterData[0];
@@ -46,6 +62,7 @@ const SelectedEventDetailPage = (props) => {
     if (props.hasError) {
         return (
             <Fragment>
+                {pageHeadData}
                 <ErrorAlert>
                     <p>Invalid filter! Please adjust your values!</p>
                 </ErrorAlert>
@@ -61,6 +78,7 @@ const SelectedEventDetailPage = (props) => {
     if (!filteredEvents || filteredEvents.length === 0) {
         return (
             <Fragment>
+                {pageHeadData}
                 <ErrorAlert>
                     <p className="center">
                         No events found for your choosen filter!
@@ -77,6 +95,7 @@ const SelectedEventDetailPage = (props) => {
 
     return (
         <Fragment>
+            {pageHeadData}
             <ResultsTitle date={date} />
             <EventList events={filteredEvents} />
         </Fragment>
